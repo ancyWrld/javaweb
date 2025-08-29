@@ -24,62 +24,64 @@
         <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
 
         <button type="submit">Register</button>
-        <p class="login-link">Already have an account? <a href="index">Login here</a></p>
+        <!-- FIXED LINK: Added leading slash -->
+        <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
       </form>
     </div>
   </div>
 
   <script>
-    document.getElementById("registrationForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+      document.getElementById("registrationForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
-      if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-      }
-
-      // Collect all input values - MUST match WebModelDTO fields
-      const userData = {
-        username: document.getElementById("username").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        nationalId: document.getElementById("nationalId").value,
-        dob: document.getElementById("dob").value,
-        region: document.getElementById("region").value,
-        password: password
-      };
-
-      try {
-        const response = await fetch("/api/users", {  // Changed to correct endpoint
-          method: "POST",
-          headers: { 
-            "Content-Type": "application/json" 
-          },
-          body: JSON.stringify(userData)
-        });
-
-        const result = await response.json();
-        
-        if (response.ok) {
-          alert("Registration successful! You can now log in.");
-          window.location.href = "index";
-        } else {
-          // Show validation errors from server
-          if (result.errors) {
-            const errorMessages = Object.values(result.errors).join('\n');
-            alert("Validation errors:\n" + errorMessages);
-          } else {
-            alert("Error: " + (result.message || "Please try again."));
-          }
+        if (password !== confirmPassword) {
+          alert("Passwords do not match!");
+          return;
         }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Server error! Please try again later.");
-      }
-    });
+
+        // Collect all input values
+        const userData = {
+          username: document.getElementById("username").value,
+          email: document.getElementById("email").value,
+          phone: document.getElementById("phone").value,
+          nationalId: document.getElementById("nationalId").value,
+          dob: document.getElementById("dob").value,
+          region: document.getElementById("region").value,
+          password: password
+        };
+
+        try {
+          const response = await fetch("/api/users", {
+            method: "POST",
+            headers: { 
+              "Content-Type": "application/json" 
+            },
+            body: JSON.stringify(userData)
+          });
+
+          const result = await response.json();
+          
+          if (response.ok) {
+            alert("Registration successful! You can now log in.");
+            // FIXED REDIRECT: Added leading slash
+            window.location.href = "/login"; // Redirect to login page
+          } else {
+            // Show validation errors from server
+            if (result.errors) {
+              const errorMessages = Object.values(result.errors).join('\n');
+              alert("Validation errors:\n" + errorMessages);
+            } else {
+              alert("Error: " + (result.message || "Please try again."));
+            }
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Server error! Please try again later.");
+        }
+      });
   </script>
 
 </body>

@@ -3,75 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Election Management System</title>
+  <title>Election Management System | UDOM</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="login-body">
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <img src="/udom.png" alt="UDOM Logo" class="logo" />
+        <div class="logo-text">Election Management System</div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="/login" class="btn">Login</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <div class="login-container">
-    <div class="login-card">
-      <!-- Logo -->
-      <img src="/udoso.png" alt="EMS Logo" class="logo" />
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Secure & Transparent Voting Platform</h1>
+        <p>The University of Dodoma Election Management System provides a secure, transparent, and efficient platform for student elections. Register to vote and make your voice heard!</p>
+        <div class="hero-buttons">
+          <a href="/register" class="btn">Register Now</a>
+          <a href="/login" class="btn btn-outline">Voter Login</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="/udom.jpeg" alt="Election Illustration" />
+      </div>
+    </section>
 
-      <!-- Title -->
-      <h2>Welcome to Election Management System</h2>
+    <section class="features">
+      <h2>Why Choose Our System</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Secure Voting</h3>
+          <p>Advanced encryption and security protocols ensure your vote remains confidential and tamper-proof.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Fast Results</h3>
+          <p>Real-time vote counting and instant results announcement after polls close.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Easy to Use</h3>
+          <p>Simple and intuitive interface designed for all students regardless of technical experience.</p>
+        </div>
+      </div>
+    </section>
 
-      <!-- Login Form -->
-      <form class="login-form" id="loginForm">
-        <input type="text" id="username" placeholder="Username" required />
-        <input type="password" id="password" placeholder="Password" required />
-
-        <!-- User Type Selection -->
-        <label for="role" style="display:block; margin:10px 0 5px; text-align:left;">Login As:</label>
-        <select id="role" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
-          <option value="">-- Select Role --</option>
-          <option value="admin">Admin</option>
-          <option value="voter">Voter</option>
-          <option value="candidate">Candidate</option>
-        </select>
-
-        <button type="submit">Login</button>
-
-        <!-- Link to Register -->
-        <p class="login-link">
-          Don't have an account?
-          <a href="register">Register now</a>
-        </p>
-      </form>
-    </div>
+    <footer>
+      <p>&copy; 2025 University of Dodoma - Election Management System. All rights reserved.</p>
+    </footer>
   </div>
-
-  <!-- Redirect Script Based on Selected Role -->
-  <script>
-    // Check if user is already registered
-    document.getElementById("loginForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const role = document.getElementById("role").value;
-
-      // Check registration status in localStorage
-      const registered = localStorage.getItem("registered");
-
-      if (!registered || registered !== "true") {
-        alert("You must register first before logging in.");
-        window.location.href = "register.html";
-        return;
-      }
-
-      // Simulate successful login
-      if (role === "admin") {
-        window.location.href = "admindashboard.html";
-      } else if (role === "voter") {
-        window.location.href = "voterdashboard.html";
-      } else if (role === "candidate") {
-        window.location.href = "candidatedashboard.html";
-      } else {
-        alert("Please select a role to continue.");
-      }
-    });
-  </script>
-
 </body>
 </html>
